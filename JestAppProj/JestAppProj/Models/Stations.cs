@@ -10,5 +10,7 @@ namespace JestAppProj.Models
     {
         int Id;
         string StationName;
+      
     }
+
 }

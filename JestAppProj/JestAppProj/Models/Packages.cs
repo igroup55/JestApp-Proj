@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+
 namespace JestAppProj.Models
 {
     public class Packages
@@ -35,7 +36,8 @@ namespace JestAppProj.Models
         public void AddPack()
         {
             DBServices dbs = new DBServices();
-             dbs.AddPack(this);
+            dbs.AddPack(this);
+
 
         }
     }
