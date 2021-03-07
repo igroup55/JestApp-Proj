@@ -32,10 +32,10 @@ namespace JestAppProj.Models
         public bool ExpressP { get => expressP; set => expressP = value; }
         public bool Status { get => status; set => status = value; }
 
-        public void AddPack()
+        public int AddPack()
         {
             DBServices dbs = new DBServices();
-             dbs.AddPack(this);
+            return dbs.AddPack(this);
 
         }
     }

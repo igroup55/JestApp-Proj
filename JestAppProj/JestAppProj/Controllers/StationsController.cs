@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JestAppProj.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -16,9 +17,12 @@ namespace JestAppProj.Controllers
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        public List<Stations> GetAllStations()
         {
-            return "value";
+
+            Stations stations = new Stations();
+            return stations.GetStations();
+
         }
 
         // POST api/<controller>

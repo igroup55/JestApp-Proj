@@ -1,16 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.Configuration;
+using JestAppProj.Models;
 
 namespace JestAppProj.Models.DAL
 {
     public class DBServices
     {
+        public List<Stations> GetAllStations()
+        {
+            SqlConnection con = null;
+            List<Stations> StationList = new List<Stations>();
 
+            try
+            {
+                con = Connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
+
+                String selectSTR = "SELECT * FROM Stations";
+                SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+                // get a reader
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+                while (dr.Read())
+                {   // Read till the end of the data into a row
+                    Stations R = new Stations
+                    {
+                      
+                    };
+                    StationList.Add(R);
+                }
+
+                return StationList;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+            }
+
+        }
+
+      
         public int AddPack(Packages packages)
         {
 
