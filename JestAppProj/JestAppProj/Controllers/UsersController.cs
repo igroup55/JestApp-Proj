@@ -10,7 +10,7 @@ namespace JestAppProj.Controllers
 {
     public class UsersController : ApiController
     {
-
+        [Route("api/Users/{email1}/{pass1}")]
         public List<Users> Get(string email, string pass)
         {
             Users user = new Users();

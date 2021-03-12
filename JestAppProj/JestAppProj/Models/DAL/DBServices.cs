@@ -67,7 +67,7 @@ namespace JestAppProj.Models.DAL
             StringBuilder sb = new StringBuilder();
             // use a string builder to create the dynamic string
             sb.AppendFormat("VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}')", users.UserId, users.FullName, users.PhoneNum, users.EmailAddress, users.Password, users.ProfilePic, users.BirthDate);
-            string prefix = "INSERT INTO Customers_2021 ([UserId],[Fullname],[PhoneNum],[EmailAddress],[Password],[ProfilePic],[BirthDate]) ";
+            string prefix = "INSERT INTO tbl_User ([UserId],[Fullname],[PhoneNum],[EmailAddress],[Password],[ProfilePic],[BirthDate]) ";
             command = prefix + sb.ToString();
 
             return command;
