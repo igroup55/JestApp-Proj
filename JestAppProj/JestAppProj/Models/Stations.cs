@@ -8,21 +8,21 @@ namespace JestAppProj.Models
 {
     public class Stations
     {
-        int id;
+        int stationID;
         string stationName;
 
-        public Stations() { }
-
-        public Stations(int id, string stationName)
+        public Stations()
         {
-            Id = id;
+        }
+
+        public Stations(int stationID, string stationName)
+        {
+            StationID = stationID;
             StationName = stationName;
         }
 
-        public int Id { get => id; set => id = value; }
+        public int StationID { get => stationID; set => stationID = value; }
         public string StationName { get => stationName; set => stationName = value; }
-
-     
 
         public List<Stations> GetStations ()
         {

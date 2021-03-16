@@ -8,21 +8,25 @@ using System.Web.Http;
 
 namespace JestAppProj.Controllers
 {
-    public class StationsController : ApiController
+    public class CustomersController : ApiController
     {
+        // GET api/<controller>
+        public IEnumerable<string> Get()
+        {
+            return new string[] { "value1", "value2" };
+        }
 
         // GET api/<controller>/5
-        public List<Stations> GetAllStations()
+        public string Get(int id)
         {
-
-            Stations stations = new Stations();
-            return stations.GetStations();
-
+            return "value";
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public int Post([FromBody]Customers customer)
         {
+            return customer.AddCust();
+            
         }
 
         // PUT api/<controller>/5

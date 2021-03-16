@@ -148,8 +148,11 @@ namespace JestAppProj.Models.DAL
                 {   // Read till the end of the data into a row
                     Stations R = new Stations
                     {
-                      
-                    };
+                        StationID = Convert.ToInt32(dr["StationID"]),
+                        StationName = (string)dr["StationName"]
+
+
+                };
                     StationList.Add(R);
                 }
 
@@ -254,5 +257,70 @@ namespace JestAppProj.Models.DAL
 
             return cmd;
         }
+
+        //------------------------------------------------------------------------------------------------------------------
+        //Insert A New Customer
+        //------------------------------------------------------------------------------------------------------------------
+
+        public int AddCust(Customers customers)
+        {
+
+            SqlConnection con;
+            SqlCommand cmd;
+
+            try
+            {
+                con = Connect("DBConnectionString"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            string cStr = BuildInsertCommand1(customers);      // helper method to build the insert string
+
+            cmd = CreateCommand(cStr, con);             // create the command
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery(); // execute the command
+                return numEffected;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    //close the db connection
+                    con.Close();
+                }
+            }
+
+
+        }
+
+        private string BuildInsertCommand1(Customers customers)
+        {
+            string command;
+
+            StringBuilder sb = new StringBuilder();
+            // use a string builder to create the dynamic string
+
+            sb.AppendFormat("VALUES ({0},'{1}','{2}',{3},{4})", customers.PhoneNum, customers.FullName, customers.Address, customers.PhoneNum, customers.PhoneNum);
+            string prefix = "INSERT INTO CustomersPackages ([CustomerID],[FullName],[Address],[PhoneNum],[PackageId]) ";
+
+            command = prefix + sb.ToString()/* + "SELECT @@IDENTITY"*/;
+
+
+            return command;
+         
+        }
+
     }
 }
