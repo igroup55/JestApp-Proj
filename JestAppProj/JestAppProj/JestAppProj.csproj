@@ -165,6 +165,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LockersController.cs" />
     <Compile Include="Controllers\PackagesController.cs" />
     <Compile Include="Controllers\StationsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -174,6 +175,7 @@
     </Compile>
     <Compile Include="Models\Customers.cs" />
     <Compile Include="Models\DAL\DBServices.cs" />
+    <Compile Include="Models\Lockers.cs" />
     <Compile Include="Models\Packages.cs" />
     <Compile Include="Models\Stations.cs" />
     <Compile Include="Models\Users.cs" />

@@ -312,7 +312,7 @@ namespace JestAppProj.Models.DAL
             StringBuilder sb = new StringBuilder();
             // use a string builder to create the dynamic string
 
-            sb.AppendFormat("VALUES ({0},'{1}','{2}',{3},{4})", customers.PhoneNum, customers.FullName, customers.Address, customers.PhoneNum, customers.PhoneNum);
+            sb.AppendFormat("VALUES ({0},'{1}','{2}',{3},{4})", customers.CustomerID, customers.FullName, customers.Address, customers.PhoneNum, customers.PackageId);
             string prefix = "INSERT INTO CustomersPackages ([CustomerID],[FullName],[Address],[PhoneNum],[PackageId]) ";
 
             command = prefix + sb.ToString()/* + "SELECT @@IDENTITY"*/;
@@ -321,6 +321,61 @@ namespace JestAppProj.Models.DAL
             return command;
          
         }
+
+        //--------------------------------------------------------------------------------------------------------------------------
+        //Find an empty locker for a new delivery
+        //--------------------------------------------------------------------------------------------------------------------------
+        
+            public List<Lockers> GetEmptyLocker(Lockers lockers)
+        {
+            SqlConnection con = null;
+            List<Lockers> StationList = new List<Lockers>();
+
+            try
+            {
+                con = Connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
+
+                String selectSTR = "SELECT * FROM Lockers WHERE Busy = 0 LIMIT 1";
+                SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+                // get a reader
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+                while (dr.Read())
+                {   // Read till the end of the data into a row
+                    Lockers L = new Lockers
+                    {
+                        LockerID = Convert.ToInt32(dr["LockerID"]),
+                        Busy = (bool)dr["Busy"],
+                        PackageID = Convert.ToInt32(dr["PackageID"]),
+                        StationName = (string)dr["StationName"]
+
+
+                    };
+                    StationList.Add(L);
+                }
+
+                return StationList;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+            }
+
+
+
+        }
+
+
 
     }
 }
